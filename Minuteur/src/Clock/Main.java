@@ -14,9 +14,6 @@ public class Main {
 
         ArrayList<View> ar = new ArrayList<>();
 
-        BorderLayout borderLayout=new BorderLayout();
-
-        View v = new View(borderLayout);
         ViewButton vb = new ViewButton();
         ViewOnly vo = new ViewOnly();
 
@@ -26,8 +23,7 @@ public class Main {
                 vo.createAndShowGUIVO();
             }
 
-        });
-        ar=v.getM().getvb();
-        ar=v.getM().getvo();
+        }
+        );
     }
 }

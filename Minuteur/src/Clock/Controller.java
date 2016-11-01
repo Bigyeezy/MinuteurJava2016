@@ -1,26 +1,27 @@
 package Clock;
 
-import java.awt.Event;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Controller {
+public class Controller implements ActionListener{
 
-	private Event e;
-	private ArrayList<View> vues;
+	private Model m;
 	
-	public Controller()
+	public Controller(Model model)
 	{
-		vues=new ArrayList<>();
+		m = model;
 	}
 
-	public ArrayList<View> getVues()
-	{
-		return vues;
+	public Model getM() {
+		return m;
 	}
 
-	public void setVues(ArrayList<View> vues)
-	{
-		this.vues = vues;
+	@Override
+	public void actionPerformed(ActionEvent e) {
+        m.decreaseheure();
+        System.out.println(getM().getHeure());
 	}
 }
