@@ -16,34 +16,39 @@ public class View extends JPanel
 	private static final long serialVersionUID = 1L;
 	private static Model m;
 	private Controller c;
+    BorderLayout borderLayout;
 
-	public View()
-	{
+	public View() {
+        borderLayout=new BorderLayout();
 		m=new Model();
-		c=new Controller();
-	};
-
-	public View(BorderLayout borderLayout)
-	{
-		borderLayout=new BorderLayout();
-		m=new Model();
-		c=new Controller();
+		c=new Controller(m);
 	}
-	
-	
-	
-	@Override
+
+	public View(Model model){
+        borderLayout=new BorderLayout();
+        m=model;
+        c=new Controller(model);
+    }
+
+	public View(BorderLayout bl)
+	{
+        borderLayout=bl;
+		m=new Model();
+		c=new Controller(m);
+	}
+
+    @Override
 	public void update(Observable o, Object arg)
 	{
-		// TODO Auto-generated method stub
+		getM().HeuretoString();
+        getM().MinutetoString();
+        getM().SecondetoString();
 		
 	}
-
-
 
 	public Controller getC() {
 		return c;
 	}
-	public Model getM(){ return m; }
+	public static Model getM(){ return m; }
 
 }

@@ -15,9 +15,9 @@ public class Model extends Observable{
 	private int heure, minute, seconde;
 	
 	Model(){
-		setHeure(10);
-		setMinute(12);
-		setSeconde(5);
+		setHeure(0);
+		setMinute(0);
+		setSeconde(0);
 		vb=new ArrayList<>();
 		vo=new ArrayList<>();
 	}
