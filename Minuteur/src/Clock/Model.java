@@ -1,95 +1,59 @@
 package Clock;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Observable;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
+import java.util.*;
 
 public class Model extends Observable{
 
-	private ArrayList<View> vb;
-	private ArrayList<View> vo;
+	
 
 	private static int maxHeure=24;
-	private static int maxMin=60;
-	private static int maxSec=60;
+	private static int maxMinSec=60;
 	private int heure, minute, seconde;
-	
-	Model(){
-		setHeure(0);
-		setMinute(0);
-		setSeconde(0);
-		vb=new ArrayList<>();
-		vo=new ArrayList<>();
-	}
+	private Date date = new Date();
+	private Calendar calendar = GregorianCalendar.getInstance();
 
-	public ArrayList<View> getvb()
+	Model()
 	{
-		return vb;
+		calendar.setTime(date);
+		heure = calendar.get(Calendar.HOUR_OF_DAY);
+		minute = calendar.get(Calendar.MINUTE);
+		seconde = calendar.get(Calendar.SECOND);
 	}
 
-	public void setvb(ArrayList<View> vbut)
-	{
-		vb=vbut;
-	}
-
-	public ArrayList<View> getvo()
-	{
-		return vo;
-	}
-
-	public void setvo(ArrayList<View> vonly)
-	{
-		vo=vonly;
-	}
-
-	public int getHeure() {
-		return heure;
-	}
-
-	public void setHeure(int heure) {
-		this.heure = heure;
-	}
-
-	public int getMinute() {
-		return minute;
-	}
-
-	public void setMinute(int minute) {
-		this.minute = minute;
-	}
-
-	public int getSeconde() {
-		return seconde;
-	}
-
-	public void setSeconde(int seconde) {
-		this.seconde = seconde;
-	}
-	
 	public void increaseheure(){
 		this.heure++;
 		if(this.heure%maxHeure==0)
 		{
 			this.heure=0;
 		}
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void increaseminute(){
 		this.minute++;
-		if(this.minute%maxMin==0)
+		if(this.minute%maxMinSec==0)
 		{
 			this.minute=0;
 			this.increaseheure();
 		}
+        setChanged();
+        notifyObservers();
 	}
 	
 	public void increasesconde(){
 		this.seconde++;
-		if(this.seconde%maxSec==0)
+		if(this.seconde%maxMinSec==0)
 		{
 			this.seconde=0;
 			this.increaseminute();
 		}
+		setChanged();
+        notifyObservers();
+
 	}
 	
 	public void decreaseheure(){
@@ -98,6 +62,8 @@ public class Model extends Observable{
 		{
 			this.heure=23;
 		}
+        setChanged();
+        notifyObservers();
 	}
 	
 	public void decreaseminute(){
@@ -107,6 +73,8 @@ public class Model extends Observable{
 			this.minute=59;
 			this.decreaseheure();
 		}
+        setChanged();
+        notifyObservers();
 	}
 	
 	public void decreaseseconde(){
@@ -116,21 +84,23 @@ public class Model extends Observable{
 			this.seconde=59;
 			this.decreaseminute();
 		}
+        setChanged();
+        notifyObservers();
 	}
 
 	public String HeuretoString()
 	{
-		return "Heure "+this.getHeure();
+		return String.valueOf(heure);
 	}
 
 	public String MinutetoString()
 	{
-		return "Minute "+this.getMinute();
+		return String.valueOf(minute);
 	}
 
 	public String SecondetoString()
 	{
-		return "Seconde "+this.getSeconde();
+		return String.valueOf(seconde);
 	}
 	
 }
