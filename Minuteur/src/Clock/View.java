@@ -1,54 +1,54 @@
 package Clock;
 
-import java.awt.BorderLayout;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
 
-public class View extends JPanel 
-				  implements Observer{
+public class View extends JPanel
+        implements Observer {
 
-	/**
-	 *
-	 */
+    private static Model m;
 
-	private static final long serialVersionUID = 1L;
-	private static Model m;
-	private Controller c;
-    BorderLayout borderLayout;
+    WindowButton Heures;
+    WindowButton Minutes;
+    WindowButton Secondes;
 
-	public View() {
-        borderLayout=new BorderLayout();
-		m=new Model();
-		c=new Controller(m);
-	}
+    WindowOnly Minutes_Secondes;
+    WindowOnly Heures_Minutes_Secondes;
 
-	public View(Model model){
-        borderLayout=new BorderLayout();
-        m=model;
-        c=new Controller(model);
+    public View(Model model) {
+        this.m = model;
+        m.addObserver(this);
+
+        Heures = new WindowButton("Heures", m.HeuretoString());
+
+        Minutes = new WindowButton("Minutes", m.MinutetoString());
+
+        Secondes = new WindowButton("Secondes", m.SecondetoString());
+
+
+        Heures_Minutes_Secondes = new WindowOnly("Heures - Minutes - Secondes", m.HeuretoString() + ":" + m.MinutetoString() + ":" + m.SecondetoString());
+
+        Minutes_Secondes = new WindowOnly("Minutes - Secondes", m.MinutetoString() + " - " + m.SecondetoString());
+
     }
 
-	public View(BorderLayout bl)
-	{
-        borderLayout=bl;
-		m=new Model();
-		c=new Controller(m);
-	}
-
     @Override
-	public void update(Observable o, Object arg)
-	{
-		getM().HeuretoString();
-        getM().MinutetoString();
-        getM().SecondetoString();
-		
-	}
+    public void update(Observable o, Object arg) {
 
-	public Controller getC() {
-		return c;
-	}
-	public static Model getM(){ return m; }
+        Heures.setDonnée(m.HeuretoString());
 
+        Minutes.setDonnée(m.MinutetoString());
+
+        Secondes.setDonnée(m.SecondetoString());
+
+        Minutes_Secondes.setDonnée(m.MinutetoString() + " - " + m.SecondetoString());
+
+        Heures_Minutes_Secondes.setDonnée(m.HeuretoString() + ":" + m.MinutetoString() + ":" + m.SecondetoString());
+
+
+    }
 }
+
+

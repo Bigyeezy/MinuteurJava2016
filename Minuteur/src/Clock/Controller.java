@@ -1,27 +1,40 @@
 package Clock;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Controller implements ActionListener{
+public class Controller implements ActionListener {
 
-	private Model m;
-	
-	public Controller(Model model)
-	{
-		m = model;
-	}
+    private Model m;
+    private View v;
 
-	public Model getM() {
-		return m;
-	}
+    public Controller(Model model, View view) {
+        this.m = model;
+        this.v = view;
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-        m.decreaseheure();
-        System.out.println(getM().getHeure());
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == v.Heures.getPlus()){
+            m.increaseheure();
+        }
+        if(e.getSource() == v.Heures.getMoins()){
+            m.decreaseheure();
+        }
+        if(e.getSource() == v.Minutes.getPlus()){
+            m.increaseminute();
+        }
+        if(e.getSource() == v.Minutes.getMoins()){
+            m.decreaseminute();
+        }
+        if(e.getSource() == v.Secondes.getPlus()){
+            m.increasesconde();
+        }
+        if(e.getSource() == v.Secondes.getMoins()){
+            m.decreaseseconde();
+        }
+
+
+    }
 }
